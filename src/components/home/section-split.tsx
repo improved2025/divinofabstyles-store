@@ -6,13 +6,13 @@ const lanes = [
     title: "Women",
     copy: "Elegant dresses, sets, occasion pieces, and standout looks designed to carry grace with confidence.",
     href: "/women",
-    image: "/images/home/women-cover.jpg",
+    image: "/images/home/women-cover.png",
   },
   {
     title: "Men",
     copy: "Sharp native wear, modern sets, and refined statement pieces with structure and cultural presence.",
     href: "/men",
-    image: "/images/home/men-cover.jpg",
+    image: "/images/home/men-cover.png",
   },
 ];
 
