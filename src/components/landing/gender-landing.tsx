@@ -13,36 +13,40 @@ export function GenderLanding({ data }: GenderLandingProps) {
       <section
         className={`border-b border-[rgba(90,52,122,0.12)] bg-gradient-to-br ${data.heroTone}`}
       >
-        <div className="container-shell grid gap-10 py-14 md:py-16 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
+        <div className="container-shell grid gap-8 py-12 sm:gap-10 md:py-16 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
           <div>
             <p className="gold-text text-xs font-semibold uppercase tracking-[0.28em]">
               {data.eyebrow}
             </p>
 
-            <h1 className="mt-4 font-[var(--font-display)] text-[clamp(3rem,6vw,5.8rem)] font-bold leading-[0.9] tracking-[-0.05em] text-[#522b7a]">
+            <h1 className="mt-4 font-[var(--font-display)] text-[clamp(2.6rem,8vw,5.8rem)] font-bold leading-[0.9] tracking-[-0.05em] text-[#522b7a]">
               {data.title}
             </h1>
 
-            <p className="mt-6 max-w-[560px] text-base leading-8 text-[#6b6475] md:text-lg">
+            <p className="mt-5 max-w-[560px] text-sm leading-7 text-[#6b6475] sm:mt-6 sm:text-base sm:leading-8 md:text-lg">
               {data.intro}
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Link href="/new-arrivals" className="button-primary">
+            <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-4">
+              <Link href="/new-arrivals" className="button-primary w-full sm:w-auto">
                 Shop New Arrivals
               </Link>
-              <Link href="/featured" className="button-secondary">
+              <Link href="/featured" className="button-secondary w-full sm:w-auto">
                 View Featured Styles
               </Link>
             </div>
           </div>
 
-          <div className={`overflow-hidden rounded-[34px] border border-white/70 bg-gradient-to-br ${data.heroPanelTone} p-4 shadow-[0_24px_70px_rgba(90,52,122,0.08)] md:p-6`}>
-            <div className="relative min-h-[480px] overflow-hidden rounded-[28px]">
+          <div
+            className={`overflow-hidden rounded-[28px] border border-white/70 bg-gradient-to-br ${data.heroPanelTone} p-3 shadow-[0_24px_70px_rgba(90,52,122,0.08)] sm:p-4 md:rounded-[34px] md:p-6`}
+          >
+            <div className="relative min-h-[320px] overflow-hidden rounded-[22px] sm:min-h-[420px] md:min-h-[480px] md:rounded-[28px]">
               <Image
                 src={data.heroImage}
                 alt={data.eyebrow}
                 fill
+                priority
+                sizes="(max-width: 1023px) 100vw, 50vw"
                 className="object-cover"
               />
             </div>
@@ -50,9 +54,9 @@ export function GenderLanding({ data }: GenderLandingProps) {
         </div>
       </section>
 
-      <section className="py-16 md:py-20">
+      <section className="py-14 md:py-20">
         <div className="container-shell">
-          <div className="mb-10 max-w-2xl">
+          <div className="mb-8 max-w-2xl sm:mb-10">
             <p className="gold-text text-xs font-semibold uppercase tracking-[0.24em]">
               Categories
             </p>
@@ -62,31 +66,32 @@ export function GenderLanding({ data }: GenderLandingProps) {
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4 xl:gap-6">
             {data.categories.map((category) => (
               <Link
                 key={category.slug}
                 href={`/${data.key}/${category.slug}`}
-                className="group overflow-hidden rounded-[28px] border border-[rgba(90,52,122,0.12)] bg-white shadow-[0_14px_40px_rgba(90,52,122,0.04)] transition duration-300 hover:-translate-y-1"
+                className="group overflow-hidden rounded-[24px] border border-[rgba(90,52,122,0.12)] bg-white shadow-[0_14px_40px_rgba(90,52,122,0.04)] transition duration-300 hover:-translate-y-1 md:rounded-[28px]"
               >
                 <div className="relative aspect-[4/5] overflow-hidden">
                   <Image
                     src={category.image}
                     alt={category.title}
                     fill
+                    sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 25vw"
                     className="object-cover transition duration-500 group-hover:scale-[1.03]"
                   />
                   <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(35,31,43,0.66),rgba(35,31,43,0.08))]" />
                 </div>
 
-                <div className="p-6">
-                  <h3 className="font-[var(--font-display)] text-3xl font-bold leading-none tracking-[-0.04em] text-[#522b7a]">
+                <div className="p-5 md:p-6">
+                  <h3 className="font-[var(--font-display)] text-[1.9rem] font-bold leading-none tracking-[-0.04em] text-[#522b7a] md:text-3xl">
                     {category.title}
                   </h3>
-                  <p className="mt-4 text-sm leading-7 text-[#6b6475]">
+                  <p className="mt-3 text-sm leading-7 text-[#6b6475] md:mt-4">
                     {category.copy}
                   </p>
-                  <p className="mt-5 text-xs font-semibold uppercase tracking-[0.16em] text-[#6f42a6]">
+                  <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#6f42a6] md:mt-5 md:text-xs">
                     Explore category →
                   </p>
                 </div>
@@ -96,9 +101,9 @@ export function GenderLanding({ data }: GenderLandingProps) {
         </div>
       </section>
 
-      <section id="featured" className="pb-16 md:pb-20">
+      <section id="featured" className="pb-14 md:pb-20">
         <div className="container-shell">
-          <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div className="mb-8 flex flex-col gap-4 md:mb-10 md:flex-row md:items-end md:justify-between">
             <div className="max-w-2xl">
               <p className="gold-text text-xs font-semibold uppercase tracking-[0.24em]">
                 Featured Pieces
@@ -117,7 +122,7 @@ export function GenderLanding({ data }: GenderLandingProps) {
             </Link>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4 xl:gap-6">
             {data.featured.map((item) => (
               <ProductCard
                 key={item.id}
