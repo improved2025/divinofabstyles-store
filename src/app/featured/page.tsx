@@ -15,7 +15,7 @@ function FeaturedSectionBlock({
   items: {
     id: string;
     title: string;
-    price: string;
+    price?: string;
     tag: string;
     image: string;
   }[];
@@ -102,7 +102,7 @@ export default function FeaturedPage() {
             {heroSpotlight.map((item, index) => (
               <div
                 key={item.id}
-                className={`relative overflow-hidden rounded-[26px] border border-white/70 bg-white shadow-[0_18px_50px_rgba(90,52,122,0.08)] ${
+                className={`overflow-hidden rounded-[26px] border border-white/70 bg-white shadow-[0_18px_50px_rgba(90,52,122,0.08)] ${
                   index === 0 || index === 3 ? "translate-y-0" : "sm:translate-y-8"
                 }`}
               >
