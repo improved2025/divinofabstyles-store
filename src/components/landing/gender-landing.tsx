@@ -159,7 +159,23 @@ export function GenderLanding({ data }: GenderLandingProps) {
                 }`}
               >
                 <div className="grid h-full gap-6 p-8 md:p-9">
-                  <div className="h-[220px] rounded-[24px] border border-white/60 bg-white/35 shadow-[0_16px_45px_rgba(90,52,122,0.06)]" />
+                  <div className="relative h-[220px] overflow-hidden rounded-[24px] border border-white/60 bg-white/70 shadow-[0_16px_45px_rgba(90,52,122,0.06)]">
+                    <div className="relative h-full w-full p-5 md:p-6">
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        width={700}
+                        height={450}
+                        sizes={
+                          index === 0
+                            ? "(max-width: 1023px) 100vw, 66vw"
+                            : "(max-width: 1023px) 100vw, 33vw"
+                        }
+                        className="h-full w-full object-contain"
+                      />
+                    </div>
+                  </div>
+
                   <div>
                     <h3 className="font-[var(--font-display)] text-4xl font-bold leading-none tracking-[-0.04em] text-[#522b7a]">
                       {item.title}
@@ -212,8 +228,26 @@ export function GenderLanding({ data }: GenderLandingProps) {
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
-                <div className="h-[220px] rounded-[26px] border border-white/20 bg-white/16 backdrop-blur-[2px]" />
-                <div className="h-[220px] rounded-[26px] border border-white/20 bg-white/10 backdrop-blur-[2px] sm:translate-y-10" />
+                {data.editorialImages.map((item, index) => (
+                  <div
+                    key={item.alt}
+                    className={`relative h-[220px] overflow-hidden rounded-[26px] border border-white/20 bg-white/12 backdrop-blur-[2px] ${
+                      index === 1 ? "sm:translate-y-10" : ""
+                    }`}
+                  >
+                    <div className="absolute inset-0 m-3 rounded-[20px] bg-white/90" />
+                    <div className="relative h-full w-full p-6">
+                      <Image
+                        src={item.image}
+                        alt={item.alt}
+                        width={500}
+                        height={500}
+                        sizes="(max-width: 1023px) 100vw, 25vw"
+                        className="h-full w-full object-contain"
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

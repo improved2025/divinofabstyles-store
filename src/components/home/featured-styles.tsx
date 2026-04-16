@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { featuredStyles } from "@/lib/home-data";
 
@@ -24,7 +25,24 @@ export function FeaturedStyles() {
               }`}
             >
               <div className="grid h-full gap-6 p-8 md:p-9">
-                <div className="h-[220px] rounded-[24px] border border-white/60 bg-white/35 shadow-[0_16px_45px_rgba(90,52,122,0.06)]" />
+                <div className="relative h-[260px] overflow-hidden rounded-[24px] border border-white/60 bg-white/70 shadow-[0_16px_45px_rgba(90,52,122,0.06)]">
+                  <div className="relative h-full w-full p-5 md:p-6">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill={false}
+                      width={700}
+                      height={700}
+                      sizes={
+                        index === 0
+                          ? "(max-width: 1023px) 100vw, 66vw"
+                          : "(max-width: 1023px) 100vw, 33vw"
+                      }
+                      className="h-full w-full object-contain"
+                    />
+                  </div>
+                </div>
+
                 <div>
                   <h3 className="font-[var(--font-display)] text-4xl font-bold leading-none tracking-[-0.04em] text-[#522b7a]">
                     {item.title}

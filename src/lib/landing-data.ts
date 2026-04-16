@@ -1,7 +1,7 @@
 export type LandingProduct = {
   id: string;
   title: string;
-  price: string;
+  price?: string;
   tag: string;
   image: string;
 };
@@ -17,6 +17,7 @@ export type LandingStyleBlock = {
   title: string;
   copy: string;
   tone: string;
+  image: string;
 };
 
 export type LandingPageData = {
@@ -33,6 +34,10 @@ export type LandingPageData = {
   editorialTitle: string;
   editorialCopy: string;
   editorialTone: string;
+  editorialImages: {
+    image: string;
+    alt: string;
+  }[];
 };
 
 export const womenPageData: LandingPageData = {
@@ -67,35 +72,31 @@ export const womenPageData: LandingPageData = {
       slug: "accessories",
       title: "Accessories",
       copy: "Finishing touches that complete the look without losing elegance.",
-      image: "/images/women/accessories.jpeg",
+      image: "/images/products/w-set-1.jpeg",
     },
   ],
   featured: [
     {
       id: "w1",
       title: "Royal Bloom Occasion Dress",
-      price: "$165",
       tag: "Featured",
       image: "/images/products/royal-bloom-occasion-dress.png",
     },
     {
       id: "w2",
       title: "Golden Grace Women Set",
-      price: "$145",
       tag: "New",
       image: "/images/products/golden-grace-women-set.png",
     },
     {
       id: "w3",
       title: "Signature Celebration Look",
-      price: "$185",
       tag: "Best Seller",
       image: "/images/products/signature-celebration-look.png",
     },
     {
       id: "w4",
       title: "Ivory Luxe Evening Edit",
-      price: "$190",
       tag: "New",
       image: "/images/products/ivory-luxe-evening-edit.png",
     },
@@ -105,22 +106,35 @@ export const womenPageData: LandingPageData = {
       title: "Wedding Guest Edit",
       copy: "Elegant looks that arrive with beauty, presence, and quiet authority.",
       tone: "from-[#fff2e9] to-[#f8eaf7]",
+      image: "/images/products/the-spotlight-rhinestone-mesh-gown-teal.jpeg",
     },
     {
       title: "Sunday Best",
       copy: "Polished fashion for worship, events, and moments that carry meaning.",
       tone: "from-[#f6edff] to-[#f1e7ff]",
+      image: "/images/products/plus-stripe-cross-shoulder-band-maxi-dress.jpeg",
     },
     {
       title: "Soft Statement",
       copy: "Graceful styling with color, movement, and strong feminine structure.",
       tone: "from-[#fdeef3] to-[#fff7ed]",
+      image: "/images/products/merlin-mesh-cowl-neck-romper-slate-blue.jpeg",
     },
   ],
   editorialTitle: "Style that moves with grace.",
   editorialCopy:
     "Women’s looks should feel intentional, flattering, and memorable. This lane is built for occasion dressing, refined statement pieces, and everyday elegance with cultural beauty.",
   editorialTone: "from-[#6b3f97] via-[#7c4bb0] to-[#c8a64d]",
+  editorialImages: [
+    {
+      image: "/images/products/the-spotlight-rhinestone-mesh-gown-teal.jpeg",
+      alt: "Women editorial spotlight gown",
+    },
+    {
+      image: "/images/products/w-set-1.jpeg",
+      alt: "Women editorial jewelry set",
+    },
+  ],
 };
 
 export const menPageData: LandingPageData = {
@@ -155,35 +169,31 @@ export const menPageData: LandingPageData = {
       slug: "accessories",
       title: "Accessories",
       copy: "Details that sharpen the entire look without forcing attention.",
-      image: "/images/men/accessories.jpeg",
+      image: "/images/products/m-hat-1.jpeg",
     },
   ],
   featured: [
     {
       id: "m1",
       title: "Modern Monarch Native Set",
-      price: "$175",
       tag: "Featured",
       image: "/images/products/modern-monarch-native-set.png",
     },
     {
       id: "m2",
       title: "Ivory Prestige Agbada",
-      price: "$220",
       tag: "New",
       image: "/images/products/ivory-prestige-agbada.png",
     },
     {
       id: "m3",
       title: "Classic Senator Statement",
-      price: "$160",
       tag: "Best Seller",
       image: "/images/products/classic-senator-statement.png",
     },
     {
       id: "m4",
       title: "Royal Ceremony Edit",
-      price: "$205",
       tag: "New",
       image: "/images/products/royal-ceremony-edit.png",
     },
@@ -193,20 +203,33 @@ export const menPageData: LandingPageData = {
       title: "Ceremony Looks",
       copy: "Clean, elevated styles built for weddings, celebrations, and grand entries.",
       tone: "from-[#eee7ff] to-[#f7f1ff]",
+      image: "/images/products/ivory-prestige-agbada.png",
     },
     {
       title: "Refined Traditional",
       copy: "Classic African menswear with stronger structure and premium finish.",
       tone: "from-[#fff3e6] to-[#f6eadb]",
+      image: "/images/products/modern-monarch-native-set.png",
     },
     {
       title: "Modern Presence",
       copy: "Looks that feel current without losing their cultural authority.",
       tone: "from-[#f6f0ff] to-[#ece4ff]",
+      image: "/images/products/classic-senator-statement.png",
     },
   ],
   editorialTitle: "Menswear with quiet authority.",
   editorialCopy:
     "The men’s lane is built for native elegance, clean tailoring, and confident presentation. From modern sets to ceremony-ready looks, every piece should feel grounded, sharp, and memorable.",
   editorialTone: "from-[#4f2d77] via-[#69419a] to-[#c8a64d]",
+  editorialImages: [
+    {
+      image: "/images/products/pearl-trim-off-shoulder-top-and-pants-2-piece-set.jpeg",
+      alt: "Men editorial native set",
+    },
+    {
+      image: "/images/products/m-hat-1.jpeg",
+      alt: "Men editorial hat accessory",
+    },
+  ],
 };

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 type ProductCardProps = {
   title: string;
-  price: string;
+  price?: string;
   tag: string;
   image: string;
 };
@@ -28,7 +28,12 @@ export function ProductCard({ title, price, tag, image }: ProductCardProps) {
         <h3 className="text-base font-semibold text-[#522b7a]">{title}</h3>
 
         <div className="mt-3 flex items-center justify-between">
-          <p className="text-sm font-medium text-[#6b6475]">{price}</p>
+          {price ? (
+            <p className="text-sm font-medium text-[#6b6475]">{price}</p>
+          ) : (
+            <span />
+          )}
+
           <button
             type="button"
             className="rounded-full border border-[rgba(90,52,122,0.12)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#6f42a6] transition hover:bg-[#f7f2fb]"

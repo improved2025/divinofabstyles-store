@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export function EditorialBanner() {
@@ -21,10 +22,12 @@ export function EditorialBanner() {
               <div className="mt-8 flex flex-wrap gap-4">
                 <Link
                   href="/featured"
-                  className="inline-flex min-h-[50px] items-center justify-center rounded-full bg-white px-6 font-semibold text-[#5a2f84] transition hover:opacity-95"
+                  className="inline-flex min-h-[50px] items-center justify-center rounded-full bg-white px-6 font-semibold transition hover:opacity-95"
+                  style={{ color: "#5a2f84" }}
                 >
                   Shop Featured Styles
                 </Link>
+
                 <Link
                   href="/new-arrivals"
                   className="inline-flex min-h-[50px] items-center justify-center rounded-full border border-white/25 px-6 font-semibold text-white transition hover:bg-white/10"
@@ -35,8 +38,33 @@ export function EditorialBanner() {
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="h-[220px] rounded-[26px] border border-white/20 bg-white/16 backdrop-blur-[2px]" />
-              <div className="h-[220px] rounded-[26px] border border-white/20 bg-white/10 backdrop-blur-[2px] sm:translate-y-10" />
+              <div className="relative h-[220px] overflow-hidden rounded-[26px] border border-white/20 bg-white/12 backdrop-blur-[2px]">
+                <div className="absolute inset-0 m-3 rounded-[20px] bg-white/90" />
+                <div className="relative h-full w-full p-6">
+                  <Image
+                    src="/images/products/the-spotlight-rhinestone-mesh-gown-teal.jpeg"
+                    alt="Featured women campaign look"
+                    width={500}
+                    height={500}
+                    sizes="(max-width: 1023px) 100vw, 25vw"
+                    className="h-full w-full object-contain"
+                  />
+                </div>
+              </div>
+
+              <div className="relative h-[220px] overflow-hidden rounded-[26px] border border-white/20 bg-white/10 backdrop-blur-[2px] sm:translate-y-10">
+                <div className="absolute inset-0 m-3 rounded-[20px] bg-white/90" />
+                <div className="relative h-full w-full p-6">
+                  <Image
+                    src="/images/products/modern-monarch-native-set.png"
+                    alt="Featured men campaign look"
+                    width={500}
+                    height={500}
+                    sizes="(max-width: 1023px) 100vw, 25vw"
+                    className="h-full w-full object-contain"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
