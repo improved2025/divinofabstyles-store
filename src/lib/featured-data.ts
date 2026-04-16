@@ -7,7 +7,7 @@ import {
 export type FeaturedItem = {
   id: string;
   title: string;
-  price: string;
+  price?: string;
   tag: string;
   image: string;
 };
@@ -27,7 +27,7 @@ function accessoryToFeaturedItem(
   return {
     id: item.id,
     title: item.title,
-    price: "Coming Soon",
+    price: undefined,
     tag: tagOverride ?? item.badge,
     image: item.image,
   };
@@ -42,7 +42,7 @@ export const editorPicks: FeaturedItem[] = [
   accessoryToFeaturedItem(womenAccessoriesPageData.groups[1].items[0], "Jewelry"),
 ];
 
-export const heroSpotlight = [
+export const heroSpotlight: FeaturedItem[] = [
   editorPicks[0],
   editorPicks[2],
   editorPicks[4],
