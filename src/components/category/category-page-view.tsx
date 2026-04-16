@@ -5,7 +5,7 @@ import { ProductCard } from "@/components/shared/product-card";
 type CategoryProduct = {
   id: string;
   title: string;
-  price: string;
+  price?: string;
   tag: string;
   image: string;
 };
