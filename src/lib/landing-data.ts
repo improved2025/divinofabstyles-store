@@ -72,7 +72,7 @@ export const womenPageData: LandingPageData = {
       slug: "accessories",
       title: "Accessories",
       copy: "Finishing touches that complete the look without losing elegance.",
-      image: "/images/products/w-set-1.jpeg",
+      image: "/images/products/jewelry/jewelry-sets/Jewelries_Samples2_016.jpeg",
     },
   ],
   featured: [
@@ -118,7 +118,7 @@ export const womenPageData: LandingPageData = {
       title: "Soft Statement",
       copy: "Graceful styling with color, movement, and strong feminine structure.",
       tone: "from-[#fdeef3] to-[#fff7ed]",
-      image: "/images/products/merlin-mesh-cowl-neck-romper-slate-blue.jpeg",
+      image: "/images/products/pearl-trim-off-shoulder-top-and-pants-2-piece-set.jpeg",
     },
   ],
   editorialTitle: "Style that moves with grace.",
@@ -224,7 +224,7 @@ export const menPageData: LandingPageData = {
   editorialTone: "from-[#4f2d77] via-[#69419a] to-[#c8a64d]",
   editorialImages: [
     {
-      image: "/images/products/pearl-trim-off-shoulder-top-and-pants-2-piece-set.jpeg",
+      image: "/images/products/modern-monarch-native-set.png",
       alt: "Men editorial native set",
     },
     {
