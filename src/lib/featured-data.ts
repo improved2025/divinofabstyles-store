@@ -57,6 +57,18 @@ function getAccessoryItems(
   );
 }
 
+function getWomenDress(id: string): FeaturedItem {
+  const item = womenCategoryPages["dresses"].products.find(
+    (product) => product.id === id
+  );
+
+  if (!item) {
+    throw new Error(`Featured dress not found: ${id}`);
+  }
+
+  return item;
+}
+
 const menHats = getAccessoryItems(
   menAccessoriesPageData,
   "hats"
@@ -92,9 +104,20 @@ const unisexBracelets = getAccessoryItems(
   "unisex-bracelets"
 );
 
+const newFeaturedDresses: FeaturedItem[] = [
+  getWomenDress("wd-blue-party-long"),
+  getWomenDress("wd-antique-gold"),
+  getWomenDress("wd-metallic-party"),
+  getWomenDress("wd-party-silver-stone"),
+  getWomenDress("wd-party-gold-stone"),
+];
+
 export const editorPicks: FeaturedItem[] = [
+  getWomenDress("wd-metallic-party"),
+  getWomenDress("wd-antique-gold"),
+  getWomenDress("wd-party-gold-stone"),
+
   womenCategoryPages["occasion-wear"].products[0],
-  womenCategoryPages["dresses"].products[0],
   womenCategoryPages["sets"].products[0],
 
   menCategoryPages["native-wear"].products[0],
@@ -116,7 +139,8 @@ export const editorPicks: FeaturedItem[] = [
 ];
 
 export const heroSpotlight: FeaturedItem[] = [
-  womenCategoryPages["occasion-wear"].products[0],
+  getWomenDress("wd-metallic-party"),
+
   menCategoryPages["native-wear"].products[0],
 
   ...(menHats[0]
@@ -135,6 +159,15 @@ export const heroSpotlight: FeaturedItem[] = [
 
 export const featuredSections: FeaturedSection[] = [
   {
+    id: "featured-dresses",
+    eyebrow: "Featured Dresses",
+    title: "Dresses made for the moment.",
+    copy:
+      "A fresh selection of statement dresses for parties, celebrations, formal events, and unforgettable entrances.",
+    items: newFeaturedDresses,
+  },
+
+  {
     id: "women-spotlight",
     eyebrow: "Women",
     title: "Women Spotlight",
@@ -143,8 +176,10 @@ export const featuredSections: FeaturedSection[] = [
     items: [
       womenCategoryPages["occasion-wear"].products[0],
       womenCategoryPages["occasion-wear"].products[3],
-      womenCategoryPages["dresses"].products[0],
-      womenCategoryPages["dresses"].products[7],
+
+      getWomenDress("wd-blue-party-long"),
+      getWomenDress("wd-party-silver-stone"),
+
       womenCategoryPages["sets"].products[0],
       womenCategoryPages["sets"].products[2],
     ],
@@ -159,8 +194,10 @@ export const featuredSections: FeaturedSection[] = [
     items: [
       menCategoryPages["native-wear"].products[0],
       menCategoryPages["native-wear"].products[1],
+
       menCategoryPages["senator-sets"].products[0],
       menCategoryPages["senator-sets"].products[2],
+
       menCategoryPages["agbada"].products[0],
       menCategoryPages["agbada"].products[1],
     ],
@@ -174,7 +211,12 @@ export const featuredSections: FeaturedSection[] = [
       "Finishing pieces selected from hats, jewelry, bracelets, hand fans, and rings.",
     items: [
       ...(menHats[0]
-        ? [accessoryToFeaturedItem(menHats[0], "Men Hat")]
+        ? [
+            accessoryToFeaturedItem(
+              menHats[0],
+              "Men Hat"
+            ),
+          ]
         : []),
 
       ...(menBracelets[0]
@@ -214,7 +256,12 @@ export const featuredSections: FeaturedSection[] = [
         : []),
 
       ...(rings[0]
-        ? [accessoryToFeaturedItem(rings[0], "Ring")]
+        ? [
+            accessoryToFeaturedItem(
+              rings[0],
+              "Ring"
+            ),
+          ]
         : []),
 
       ...(unisexBracelets[0]
