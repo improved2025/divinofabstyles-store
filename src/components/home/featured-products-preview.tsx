@@ -11,7 +11,11 @@ export function FeaturedProductsPreview() {
             <p className="gold-text text-xs font-semibold uppercase tracking-[0.24em]">
               Featured
             </p>
-            <h2 className="section-title mt-3">Standout looks with strong presence.</h2>
+
+            <h2 className="section-title mt-3">
+              Standout looks with strong presence.
+            </h2>
+
             <p className="section-copy mt-4">
               These featured pieces are pulled from your uploaded outfit selections and
               styled for the homepage spotlight.
@@ -32,6 +36,7 @@ export function FeaturedProductsPreview() {
               key={item.id}
               title={item.title}
               price={item.price}
+              sizes={item.sizes}
               tag={item.tag}
               image={item.image}
             />

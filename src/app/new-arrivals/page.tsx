@@ -15,9 +15,8 @@ export default function NewArrivalsPage() {
           </h1>
 
           <p className="mt-6 max-w-3xl text-base leading-8 text-[#6b6475] md:text-lg">
-            Explore the latest pieces added to the store. These styles come from your
-            uploaded outfit selections and are ready to be used as the foundation for
-            your new arrivals collection.
+            Discover the latest additions to the DivinoFabStyles
+            collection across women and men.
           </p>
         </div>
       </section>
@@ -26,12 +25,16 @@ export default function NewArrivalsPage() {
         <div className="container-shell">
           <div className="mb-8 max-w-2xl sm:mb-10">
             <p className="gold-text text-xs font-semibold uppercase tracking-[0.24em]">
-              Collection
+              Latest Collection
             </p>
-            <h2 className="section-title mt-3">New arrivals preview.</h2>
+
+            <h2 className="section-title mt-3">
+              Newly added to the collection.
+            </h2>
+
             <p className="section-copy mt-4">
-              Add the matching `.jpeg` product images into `public/images/products/`
-              using the exact filenames from your data file.
+              Shop recently added dresses, sets, African fashion,
+              statement pieces, and menswear.
             </p>
           </div>
 
@@ -41,6 +44,7 @@ export default function NewArrivalsPage() {
                 key={item.id}
                 title={item.title}
                 price={item.price}
+                sizes={item.sizes}
                 tag={item.tag}
                 image={item.image}
               />

@@ -1,12 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { AccessoriesPageData } from "@/lib/accessories-data";
+import { ProductCard } from "@/components/shared/product-card";
 
 type AccessoriesPageViewProps = {
   data: AccessoriesPageData;
 };
 
-export function AccessoriesPageView({ data }: AccessoriesPageViewProps) {
+export function AccessoriesPageView({
+  data,
+}: AccessoriesPageViewProps) {
   return (
     <main>
       <section className="border-b border-[rgba(90,52,122,0.12)] bg-[linear-gradient(135deg,#fffdf8_0%,#f7f2fb_52%,#fff8ef_100%)]">
@@ -26,12 +29,13 @@ export function AccessoriesPageView({ data }: AccessoriesPageViewProps) {
 
             <div className="mt-8 flex flex-wrap gap-3">
               {data.groups.map((group) => (
-                <span
+                <a
                   key={group.slug}
-                  className="rounded-full border border-[rgba(90,52,122,0.12)] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#6f42a6]"
+                  href={`#${group.slug}`}
+                  className="rounded-full border border-[rgba(90,52,122,0.12)] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#6f42a6] transition hover:bg-[#f7f2fb]"
                 >
                   {group.title}
-                </span>
+                </a>
               ))}
             </div>
 
@@ -42,11 +46,12 @@ export function AccessoriesPageView({ data }: AccessoriesPageViewProps) {
               >
                 Back to {data.lane}
               </Link>
+
               <Link
                 href="/featured"
                 className="button-primary w-full sm:w-auto"
               >
-                View Featured Styles
+                Featured Styles
               </Link>
             </div>
           </div>
@@ -59,7 +64,7 @@ export function AccessoriesPageView({ data }: AccessoriesPageViewProps) {
                 fill
                 priority
                 sizes="(max-width: 1023px) 100vw, 55vw"
-                className="object-cover"
+                className="object-contain p-6 md:p-8"
               />
             </div>
 
@@ -68,8 +73,9 @@ export function AccessoriesPageView({ data }: AccessoriesPageViewProps) {
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#c8a64d]">
                   Collection
                 </p>
+
                 <p className="mt-2 text-sm leading-7 text-[#6b6475]">
-                  Premium accessories curated to complete the full fashion statement.
+                  Premium accessories selected to complete the full look.
                 </p>
               </div>
 
@@ -77,8 +83,9 @@ export function AccessoriesPageView({ data }: AccessoriesPageViewProps) {
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#c8a64d]">
                   Categories
                 </p>
+
                 <p className="mt-2 text-sm leading-7 text-[#6b6475]">
-                  {data.groups.length} premium accessory groups ready for display.
+                  {data.groups.length} accessory collections available.
                 </p>
               </div>
             </div>
@@ -88,8 +95,13 @@ export function AccessoriesPageView({ data }: AccessoriesPageViewProps) {
 
       {data.groups.map((group, sectionIndex) => (
         <section
+          id={group.slug}
           key={group.slug}
-          className={sectionIndex % 2 === 0 ? "py-14 md:py-18" : "bg-[#fffaf4] py-14 md:py-18"}
+          className={
+            sectionIndex % 2 === 0
+              ? "scroll-mt-28 py-14 md:py-20"
+              : "scroll-mt-28 bg-[#fffaf4] py-14 md:py-20"
+          }
         >
           <div className="container-shell">
             <div className="mb-8 flex flex-col gap-4 md:mb-10 md:flex-row md:items-end md:justify-between">
@@ -97,8 +109,14 @@ export function AccessoriesPageView({ data }: AccessoriesPageViewProps) {
                 <p className="gold-text text-xs font-semibold uppercase tracking-[0.24em]">
                   {group.title}
                 </p>
-                <h2 className="section-title mt-3">{group.title}</h2>
-                <p className="section-copy mt-4">{group.copy}</p>
+
+                <h2 className="section-title mt-3">
+                  {group.title}
+                </h2>
+
+                <p className="section-copy mt-4">
+                  {group.copy}
+                </p>
               </div>
 
               <div className="rounded-full border border-[rgba(90,52,122,0.12)] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#6f42a6]">
@@ -108,33 +126,14 @@ export function AccessoriesPageView({ data }: AccessoriesPageViewProps) {
 
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-6">
               {group.items.map((item) => (
-                <article
+                <ProductCard
                   key={item.id}
-                  className="group overflow-hidden rounded-[28px] border border-[rgba(90,52,122,0.12)] bg-white transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_50px_rgba(90,52,122,0.08)]"
-                >
-                  <div className="relative aspect-[4/5] overflow-hidden">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 25vw"
-                      className="object-cover transition duration-500 group-hover:scale-[1.03]"
-                    />
-
-                    <span className="absolute left-4 top-4 rounded-full bg-white/88 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#6f42a6]">
-                      {item.badge}
-                    </span>
-                  </div>
-
-                  <div className="p-5">
-                    <h3 className="text-base font-semibold text-[#522b7a]">
-                      {item.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-7 text-[#6b6475]">
-                      Premium accessory piece curated for a refined finishing touch.
-                    </p>
-                  </div>
-                </article>
+                  title={item.title}
+                  price={item.price}
+                  sizes={item.sizes}
+                  tag={item.badge}
+                  image={item.image}
+                />
               ))}
             </div>
           </div>

@@ -11,9 +11,11 @@ export function EditorialBanner() {
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/75">
                 Campaign Edit
               </p>
+
               <h2 className="mt-4 font-[var(--font-display)] text-5xl font-bold leading-[0.94] tracking-[-0.04em] md:text-6xl">
                 Style that speaks before you do.
               </h2>
+
               <p className="mt-5 max-w-xl text-base leading-8 text-white/82 md:text-lg">
                 Occasion pieces, standout tailoring, and culture-forward looks
                 built for weddings, celebrations, events, and elegant everyday wear.
@@ -38,8 +40,13 @@ export function EditorialBanner() {
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="relative h-[220px] overflow-hidden rounded-[26px] border border-white/20 bg-white/12 backdrop-blur-[2px]">
+              <Link
+                href="/women/occasion-wear"
+                aria-label="Shop women occasion wear"
+                className="group relative block h-[220px] cursor-pointer overflow-hidden rounded-[26px] border border-white/20 bg-white/12 backdrop-blur-[2px]"
+              >
                 <div className="absolute inset-0 m-3 rounded-[20px] bg-white/90" />
+
                 <div className="relative h-full w-full p-6">
                   <Image
                     src="/images/products/the-spotlight-rhinestone-mesh-gown-teal.jpeg"
@@ -47,13 +54,18 @@ export function EditorialBanner() {
                     width={500}
                     height={500}
                     sizes="(max-width: 1023px) 100vw, 25vw"
-                    className="h-full w-full object-contain"
+                    className="h-full w-full object-contain transition duration-300 group-hover:scale-[1.04]"
                   />
                 </div>
-              </div>
+              </Link>
 
-              <div className="relative h-[220px] overflow-hidden rounded-[26px] border border-white/20 bg-white/10 backdrop-blur-[2px] sm:translate-y-10">
+              <Link
+                href="/men/native-wear"
+                aria-label="Shop men native wear"
+                className="group relative block h-[220px] cursor-pointer overflow-hidden rounded-[26px] border border-white/20 bg-white/10 backdrop-blur-[2px] sm:translate-y-10"
+              >
                 <div className="absolute inset-0 m-3 rounded-[20px] bg-white/90" />
+
                 <div className="relative h-full w-full p-6">
                   <Image
                     src="/images/products/modern-monarch-native-set.png"
@@ -61,10 +73,10 @@ export function EditorialBanner() {
                     width={500}
                     height={500}
                     sizes="(max-width: 1023px) 100vw, 25vw"
-                    className="h-full w-full object-contain"
+                    className="h-full w-full object-contain transition duration-300 group-hover:scale-[1.04]"
                   />
                 </div>
-              </div>
+              </Link>
             </div>
           </div>
         </div>

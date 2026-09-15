@@ -1,4 +1,8 @@
-import { menCategoryPages, womenCategoryPages } from "@/lib/category-data";
+import {
+  menCategoryPages,
+  womenCategoryPages,
+} from "@/lib/category-data";
+
 import {
   menAccessoriesPageData,
   womenAccessoriesPageData,
@@ -8,6 +12,7 @@ export type FeaturedItem = {
   id: string;
   title: string;
   price?: string;
+  sizes?: string[];
   tag: string;
   image: string;
 };
@@ -20,92 +25,206 @@ export type FeaturedSection = {
   items: FeaturedItem[];
 };
 
+type AccessorySourceItem = {
+  id: string;
+  title: string;
+  image: string;
+  badge: string;
+  price?: string;
+  sizes?: string[];
+};
+
 function accessoryToFeaturedItem(
-  item: { id: string; title: string; image: string; badge: string },
+  item: AccessorySourceItem,
   tagOverride?: string
 ): FeaturedItem {
   return {
     id: item.id,
     title: item.title,
-    price: undefined,
+    price: item.price,
+    sizes: item.sizes,
     tag: tagOverride ?? item.badge,
     image: item.image,
   };
 }
 
+function getAccessoryItems(
+  data: typeof menAccessoriesPageData,
+  slug: string
+) {
+  return (
+    data.groups.find((group) => group.slug === slug)?.items ?? []
+  );
+}
+
+const menHats = getAccessoryItems(
+  menAccessoriesPageData,
+  "hats"
+);
+
+const menBracelets = getAccessoryItems(
+  menAccessoriesPageData,
+  "bracelets"
+);
+
+const womenHandFans = getAccessoryItems(
+  womenAccessoriesPageData,
+  "hand-fans"
+);
+
+const womenHats = getAccessoryItems(
+  womenAccessoriesPageData,
+  "hats"
+);
+
+const jewelrySets = getAccessoryItems(
+  womenAccessoriesPageData,
+  "jewelry-sets"
+);
+
+const rings = getAccessoryItems(
+  womenAccessoriesPageData,
+  "rings"
+);
+
+const unisexBracelets = getAccessoryItems(
+  womenAccessoriesPageData,
+  "unisex-bracelets"
+);
+
 export const editorPicks: FeaturedItem[] = [
   womenCategoryPages["occasion-wear"].products[0],
   womenCategoryPages["dresses"].products[0],
+  womenCategoryPages["sets"].products[0],
+
   menCategoryPages["native-wear"].products[0],
+  menCategoryPages["senator-sets"].products[0],
   menCategoryPages["agbada"].products[0],
-  accessoryToFeaturedItem(menAccessoriesPageData.groups[0].items[0], "Hat"),
-  accessoryToFeaturedItem(womenAccessoriesPageData.groups[1].items[0], "Jewelry"),
+
+  ...(menHats[0]
+    ? [accessoryToFeaturedItem(menHats[0], "Men Hat")]
+    : []),
+
+  ...(jewelrySets[0]
+    ? [
+        accessoryToFeaturedItem(
+          jewelrySets[0],
+          "Jewelry Set"
+        ),
+      ]
+    : []),
 ];
 
 export const heroSpotlight: FeaturedItem[] = [
-  editorPicks[0],
-  editorPicks[2],
-  editorPicks[4],
-  editorPicks[5],
+  womenCategoryPages["occasion-wear"].products[0],
+  menCategoryPages["native-wear"].products[0],
+
+  ...(menHats[0]
+    ? [accessoryToFeaturedItem(menHats[0], "Men Hat")]
+    : []),
+
+  ...(jewelrySets[0]
+    ? [
+        accessoryToFeaturedItem(
+          jewelrySets[0],
+          "Jewelry Set"
+        ),
+      ]
+    : []),
 ];
 
 export const featuredSections: FeaturedSection[] = [
   {
-    id: "editors-picks",
-    eyebrow: "Featured Edit",
-    title: "Editor’s Picks",
-    copy: "A careful selection of standout pieces across women, men, and accessories for a premium storefront spotlight.",
-    items: [
-      womenCategoryPages["occasion-wear"].products[0],
-      womenCategoryPages["sets"].products[0],
-      menCategoryPages["native-wear"].products[0],
-      menCategoryPages["agbada"].products[0],
-      accessoryToFeaturedItem(menAccessoriesPageData.groups[0].items[0], "Hat"),
-      accessoryToFeaturedItem(womenAccessoriesPageData.groups[1].items[0], "Jewelry"),
-    ],
-  },
-  {
     id: "women-spotlight",
     eyebrow: "Women",
     title: "Women Spotlight",
-    copy: "Elegant occasion looks, dresses, and statement sets chosen for visual strength and premium appeal.",
+    copy:
+      "Selected dresses, occasion pieces, sets, and statement looks from the women’s collection.",
     items: [
       womenCategoryPages["occasion-wear"].products[0],
-      womenCategoryPages["occasion-wear"].products[1],
+      womenCategoryPages["occasion-wear"].products[3],
       womenCategoryPages["dresses"].products[0],
-      womenCategoryPages["dresses"].products[2],
+      womenCategoryPages["dresses"].products[7],
       womenCategoryPages["sets"].products[0],
       womenCategoryPages["sets"].products[2],
     ],
   },
+
   {
     id: "men-spotlight",
     eyebrow: "Men",
     title: "Men Spotlight",
-    copy: "Sharp native wear, agbada, and elevated statement pieces chosen to create a stronger menswear presence.",
+    copy:
+      "Native wear, senator sets, and agbada selected for strong presence and premium styling.",
     items: [
       menCategoryPages["native-wear"].products[0],
       menCategoryPages["native-wear"].products[1],
       menCategoryPages["senator-sets"].products[0],
-      menCategoryPages["senator-sets"].products[1],
+      menCategoryPages["senator-sets"].products[2],
       menCategoryPages["agbada"].products[0],
       menCategoryPages["agbada"].products[1],
     ],
   },
+
   {
     id: "accessories-spotlight",
     eyebrow: "Accessories",
     title: "Accessories Spotlight",
-    copy: "Premium finishing pieces selected from men’s, women’s, and unisex accessory collections.",
+    copy:
+      "Finishing pieces selected from hats, jewelry, bracelets, hand fans, and rings.",
     items: [
-      accessoryToFeaturedItem(menAccessoriesPageData.groups[0].items[0], "Men Hat"),
-      accessoryToFeaturedItem(menAccessoriesPageData.groups[1].items[0], "Ring"),
-      accessoryToFeaturedItem(menAccessoriesPageData.groups[2].items[0], "Bracelet"),
-      accessoryToFeaturedItem(womenAccessoriesPageData.groups[0].items[0], "Women Hat"),
-      accessoryToFeaturedItem(womenAccessoriesPageData.groups[1].items[0], "Jewelry Set"),
-      accessoryToFeaturedItem(womenAccessoriesPageData.groups[2].items[0], "Bracelet"),
-      accessoryToFeaturedItem(menAccessoriesPageData.groups[3].items[0], "Unisex"),
-      accessoryToFeaturedItem(womenAccessoriesPageData.groups[3].items[0], "Unisex"),
+      ...(menHats[0]
+        ? [accessoryToFeaturedItem(menHats[0], "Men Hat")]
+        : []),
+
+      ...(menBracelets[0]
+        ? [
+            accessoryToFeaturedItem(
+              menBracelets[0],
+              "Men Bracelet"
+            ),
+          ]
+        : []),
+
+      ...(womenHandFans[0]
+        ? [
+            accessoryToFeaturedItem(
+              womenHandFans[0],
+              "Hand Fan"
+            ),
+          ]
+        : []),
+
+      ...(womenHats[0]
+        ? [
+            accessoryToFeaturedItem(
+              womenHats[0],
+              "Fashion Hat"
+            ),
+          ]
+        : []),
+
+      ...(jewelrySets[0]
+        ? [
+            accessoryToFeaturedItem(
+              jewelrySets[0],
+              "Jewelry Set"
+            ),
+          ]
+        : []),
+
+      ...(rings[0]
+        ? [accessoryToFeaturedItem(rings[0], "Ring")]
+        : []),
+
+      ...(unisexBracelets[0]
+        ? [
+            accessoryToFeaturedItem(
+              unisexBracelets[0],
+              "Unisex Bracelet"
+            ),
+          ]
+        : []),
     ],
   },
 ];

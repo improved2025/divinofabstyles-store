@@ -6,6 +6,7 @@ type CategoryProduct = {
   id: string;
   title: string;
   price?: string;
+  sizes?: string[];
   tag: string;
   image: string;
 };
@@ -33,18 +34,27 @@ export function CategoryPageView({
             <p className="gold-text text-xs font-semibold uppercase tracking-[0.28em]">
               {lane}
             </p>
+
             <h1 className="mt-4 font-[var(--font-display)] text-[clamp(2.6rem,8vw,5.6rem)] font-bold leading-[0.9] tracking-[-0.05em] text-[#522b7a]">
               {title}
             </h1>
+
             <p className="mt-5 max-w-[560px] text-sm leading-7 text-[#6b6475] sm:mt-6 sm:text-base sm:leading-8 md:text-lg">
               {intro}
             </p>
 
             <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-4">
-              <Link href={`/${lane}`} className="button-secondary w-full sm:w-auto">
+              <Link
+                href={`/${lane}`}
+                className="button-secondary w-full sm:w-auto"
+              >
                 Back to {lane}
               </Link>
-              <Link href="/new-arrivals" className="button-primary w-full sm:w-auto">
+
+              <Link
+                href="/new-arrivals"
+                className="button-primary w-full sm:w-auto"
+              >
                 New Arrivals
               </Link>
             </div>
@@ -66,9 +76,11 @@ export function CategoryPageView({
         <div className="container-shell">
           <div className="mb-8 max-w-2xl sm:mb-10">
             <p className="gold-text text-xs font-semibold uppercase tracking-[0.24em]">
-              Collection Preview
+              Collection
             </p>
-            <h2 className="section-title mt-3">Selected pieces in this category.</h2>
+            <h2 className="section-title mt-3">
+              Selected pieces in this category.
+            </h2>
           </div>
 
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4 xl:gap-6">
@@ -77,6 +89,7 @@ export function CategoryPageView({
                 key={item.id}
                 title={item.title}
                 price={item.price}
+                sizes={item.sizes}
                 tag={item.tag}
                 image={item.image}
               />

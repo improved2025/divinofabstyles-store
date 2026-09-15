@@ -3,6 +3,8 @@ export type AccessoryItem = {
   title: string;
   image: string;
   badge: string;
+  price?: string;
+  sizes?: string[];
 };
 
 export type AccessoryGroup = {
@@ -21,16 +23,18 @@ export type AccessoriesPageData = {
   groups: AccessoryGroup[];
 };
 
-function buildRangeItems(
+const ONE_SIZE = ["One Size"];
+
+function pricedRange(
   prefix: string,
-  start: number,
-  end: number,
+  prices: Array<number | undefined>,
   ext: "jpeg" | "png",
   titlePrefix: string,
   badge: string,
+  start = 1,
   basePath = "/images/products"
 ): AccessoryItem[] {
-  return Array.from({ length: end - start + 1 }, (_, index) => {
+  return prices.map((price, index) => {
     const number = start + index;
 
     return {
@@ -38,22 +42,27 @@ function buildRangeItems(
       title: `${titlePrefix} ${number}`,
       image: `${basePath}/${prefix}-${number}.${ext}`,
       badge,
+      price: price ? `$${price}` : undefined,
+      sizes: ONE_SIZE,
     };
   });
 }
 
-function buildFileItems(
-  filenames: string[],
-  titlePrefix: string,
+function fileItem(
+  id: string,
+  title: string,
+  image: string,
   badge: string,
-  basePath: string
-): AccessoryItem[] {
-  return filenames.map((filename, index) => ({
-    id: `${titlePrefix.toLowerCase().replace(/\s+/g, "-")}-${index + 1}`,
-    title: `${titlePrefix} ${index + 1}`,
-    image: `${basePath}/${filename}`,
+  price?: number
+): AccessoryItem {
+  return {
+    id,
+    title,
+    image,
     badge,
-  }));
+    price: price ? `$${price}` : undefined,
+    sizes: ONE_SIZE,
+  };
 }
 
 export const menAccessoriesPageData: AccessoriesPageData = {
@@ -61,32 +70,56 @@ export const menAccessoriesPageData: AccessoriesPageData = {
   eyebrow: "Men Accessories",
   title: "Premium finishing pieces for a stronger presence.",
   intro:
-    "Explore crowns, rings, bracelets, and unisex pieces that sharpen the full look and complete the statement.",
+    "Explore royal hats, rings, bracelets, and unisex pieces that sharpen the full look and complete the statement.",
   heroImage: "/images/products/m-hat-1.jpeg",
   groups: [
     {
       slug: "hats",
       title: "Royal Hats",
-      copy: "Bold crown pieces and statement headwear designed for authority, culture, and presence.",
-      items: buildRangeItems("m-hat", 1, 12, "jpeg", "Men Hat", "Men"),
+      copy: "Bold crown pieces designed for authority, culture, and presence.",
+      items: pricedRange(
+        "m-hat",
+        [75, 80, 80, 75, 80, 75, 95, 90, 95, 70, 90, 90],
+        "jpeg",
+        "Men Hat",
+        "Hat"
+      ),
     },
     {
       slug: "rings",
       title: "Signature Ring",
-      copy: "A standout ring piece that adds detail, character, and premium finish.",
-      items: buildRangeItems("m-ring", 1, 1, "jpeg", "Men Ring", "Ring"),
+      copy: "A standout ring piece that adds detail and premium finish.",
+      items: pricedRange(
+        "m-ring",
+        [undefined],
+        "jpeg",
+        "Men Ring",
+        "Ring"
+      ),
     },
     {
       slug: "bracelets",
       title: "Bracelets",
-      copy: "Refined wrist details that elevate both traditional and modern menswear looks.",
-      items: buildRangeItems("m-brac", 1, 5, "jpeg", "Men Bracelet", "Bracelet"),
+      copy: "Refined wrist details that elevate both traditional and modern menswear.",
+      items: pricedRange(
+        "m-brac",
+        [25, 25, 25, 20, 20],
+        "jpeg",
+        "Men Bracelet",
+        "Bracelet"
+      ),
     },
     {
       slug: "unisex-bracelets",
       title: "Unisex Bracelets",
-      copy: "Versatile finishing pieces that work beautifully across multiple fashion expressions.",
-      items: buildRangeItems("u-brac", 1, 10, "jpeg", "Unisex Bracelet", "Unisex"),
+      copy: "Versatile finishing pieces designed across multiple fashion expressions.",
+      items: pricedRange(
+        "u-brac",
+        Array(10).fill(undefined),
+        "jpeg",
+        "Unisex Bracelet",
+        "Unisex"
+      ),
     },
   ],
 };
@@ -96,144 +129,180 @@ export const womenAccessoriesPageData: AccessoriesPageData = {
   eyebrow: "Women Accessories",
   title: "Elegant finishing pieces with beauty, texture, and detail.",
   intro:
-    "Discover hand fans, hats, jewelry sets, necklaces, earrings, rings, bracelets, and unisex wrist pieces designed to complete the full look with style and polish.",
+    "Discover hand fans, hats, jewelry sets, necklaces, earrings, rings, bracelets, and unisex pieces designed to complete the look.",
   heroImage:
     "/images/products/jewelry/jewelry-sets/Jewelries_Samples2_016.jpeg",
   groups: [
     {
       slug: "hand-fans",
       title: "Hand Fans",
-      copy: "Elegant hand fans that add beauty, movement, and a refined cultural finish to the full outfit.",
-      items: buildRangeItems("handfan", 1, 7, "jpeg", "Hand Fan", "Fan"),
+      copy: "Elegant hand fans that bring movement, color, and cultural beauty.",
+      items: pricedRange(
+        "handfan",
+        [45, 55, 55, 55, 55, 55, 45],
+        "jpeg",
+        "Hand Fan",
+        "Fan"
+      ),
     },
     {
       slug: "hats",
       title: "Fashion Hats",
-      copy: "Elegant hat pieces that add shape, style, and visual confidence to the full outfit.",
-      items: buildRangeItems("w-hat", 1, 6, "png", "Women Hat", "Hat"),
+      copy: "Elegant hat pieces that add shape, style, and confidence.",
+      items: pricedRange(
+        "w-hat",
+        [60, 55, 45, 60, 55, 60],
+        "png",
+        "Fashion Hat",
+        "Hat"
+      ),
     },
+
+    /* Each paired necklace/earring combination is treated as one jewelry-set product. */
     {
       slug: "jewelry-sets",
       title: "Jewelry Sets",
-      copy: "Polished matching sets that bring sparkle, refinement, and balance to occasion and statement looks.",
-      items: buildFileItems(
-        [
-          "Jewelries_Samples2_005.jpeg",
-          "Jewelries_Samples2_006.jpeg",
-          "Jewelries_Samples2_008.jpeg",
-          "Jewelries_Samples2_009.jpeg",
-          "Jewelries_Samples2_016.jpeg",
-          "Jewelries_Samples2_017.jpeg",
-          "Jewelries_Samples2_030.jpeg",
-          "Jewelries_Samples2_031.jpeg",
-          "Jewelries_Samples2_033.jpeg",
-          "Jewelries_Samples2_034.jpeg",
-          "Jewelries_Samples2_037.jpeg",
-          "Jewelries_Samples2_038.jpeg",
-          "Jewelries_Samples2_042.jpeg",
-          "Jewelries_Samples2_043.jpeg",
-        ],
-        "Jewelry Set",
-        "Set",
-        "/images/products/jewelry/jewelry-sets"
-      ),
+      copy: "Coordinated jewelry combinations sold as complete matching sets.",
+      items: [
+        fileItem(
+          "jset-1-2",
+          "Jewelry Set 1 + 2",
+          "/images/products/jewelry/jewelry-sets/Jewelries_Samples2_005.jpeg",
+          "Set",
+          35
+        ),
+        fileItem(
+          "jset-3-4",
+          "Jewelry Set 3 + 4",
+          "/images/products/jewelry/jewelry-sets/Jewelries_Samples2_008.jpeg",
+          "Set",
+          35
+        ),
+        fileItem(
+          "jset-5-6",
+          "Jewelry Set 5 + 6",
+          "/images/products/jewelry/jewelry-sets/Jewelries_Samples2_016.jpeg",
+          "Set",
+          45
+        ),
+        fileItem(
+          "jset-7-8",
+          "Jewelry Set 7 + 8",
+          "/images/products/jewelry/jewelry-sets/Jewelries_Samples2_030.jpeg",
+          "Set",
+          45
+        ),
+        fileItem(
+          "jset-9-10",
+          "Jewelry Set 9 + 10",
+          "/images/products/jewelry/jewelry-sets/Jewelries_Samples2_033.jpeg",
+          "Set",
+          45
+        ),
+        fileItem(
+          "jset-11-12",
+          "Jewelry Set 11 + 12",
+          "/images/products/jewelry/jewelry-sets/Jewelries_Samples2_037.jpeg",
+          "Set",
+          35
+        ),
+        fileItem(
+          "jset-13-14",
+          "Jewelry Set 13 + 14",
+          "/images/products/jewelry/jewelry-sets/Jewelries_Samples2_042.jpeg",
+          "Set",
+          35
+        ),
+      ],
     },
+
     {
       slug: "necklaces",
       title: "Necklaces",
-      copy: "Necklaces and pendants that add polish, glow, and premium finishing detail.",
-      items: buildFileItems(
-        [
-          "Jewelries_Samples2_001.jpeg",
-          "Jewelries_Samples2_005.jpeg",
-          "Jewelries_Samples2_007.jpeg",
-          "Jewelries_Samples2_008.jpeg",
-          "Jewelries_Samples2_013.jpeg",
-          "Jewelries_Samples2_016.jpeg",
-          "Jewelries_Samples2_020.jpeg",
-          "Jewelries_Samples2_028.jpeg",
-          "Jewelries_Samples2_029.jpeg",
-          "Jewelries_Samples2_030.jpeg",
-          "Jewelries_Samples2_033.jpeg",
-          "Jewelries_Samples2_037.jpeg",
-          "Jewelries_Samples2_039.jpeg",
-          "Jewelries_Samples2_042.jpeg",
-        ],
-        "Necklace",
-        "Necklace",
-        "/images/products/jewelry/necklaces"
+      copy: "Necklaces and pendants that add polish and premium finishing detail.",
+      items: [
+        "001", "005", "007", "008", "013", "016", "020",
+        "028", "029", "030", "033", "037", "039", "042",
+      ].map((number) =>
+        fileItem(
+          `necklace-${number}`,
+          `Necklace ${number}`,
+          `/images/products/jewelry/necklaces/Jewelries_Samples2_${number}.jpeg`,
+          "Necklace"
+        )
       ),
     },
+
     {
       slug: "earrings",
       title: "Earrings",
-      copy: "Refined earrings that lift the entire look with shine, balance, and elegance.",
-      items: buildFileItems(
-        [
-          "Jewelries_Samples2_004.jpeg",
-          "Jewelries_Samples2_006.jpeg",
-          "Jewelries_Samples2_009.jpeg",
-          "Jewelries_Samples2_014.jpeg",
-          "Jewelries_Samples2_017.jpeg",
-          "Jewelries_Samples2_021.jpeg",
-          "Jewelries_Samples2_022.jpeg",
-          "Jewelries_Samples2_023.jpeg",
-          "Jewelries_Samples2_026.jpeg",
-          "Jewelries_Samples2_027.jpeg",
-          "Jewelries_Samples2_031.jpeg",
-          "Jewelries_Samples2_034.jpeg",
-          "Jewelries_Samples2_035.jpeg",
-          "Jewelries_Samples2_036.jpeg",
-          "Jewelries_Samples2_038.jpeg",
-          "Jewelries_Samples2_040.jpeg",
-          "Jewelries_Samples2_043.jpeg",
-        ],
-        "Earring",
-        "Earrings",
-        "/images/products/jewelry/earrings"
+      copy: "Refined earrings selected for shine, balance, and elegance.",
+      items: [
+        "004", "006", "009", "014", "017", "021", "022", "023",
+        "026", "027", "031", "034", "035", "036", "038", "040", "043",
+      ].map((number) =>
+        fileItem(
+          `earring-${number}`,
+          `Earring ${number}`,
+          `/images/products/jewelry/earrings/Jewelries_Samples2_${number}.jpeg`,
+          "Earrings"
+        )
       ),
     },
+
     {
       slug: "rings",
       title: "Rings",
-      copy: "Statement rings and fine ring styles chosen for a cleaner premium jewelry mix.",
-      items: buildFileItems(
-        [
-          "Jewelries_Samples2_002.jpeg",
-          "Jewelries_Samples2_011.jpeg",
-          "Jewelries_Samples2_012.jpeg",
-          "Jewelries_Samples2_015.jpeg",
-          "Jewelries_Samples2_018.jpeg",
-          "Jewelries_Samples2_019.jpeg",
-          "Jewelries_Samples2_024.jpeg",
-          "Jewelries_Samples2_032.jpeg",
-          "Jewelries_Samples2_041.jpeg",
-        ],
-        "Ring",
-        "Ring",
-        "/images/products/jewelry/rings"
+      copy: "Statement rings and refined everyday ring styles.",
+      items: [
+        ["002", 12],
+        ["011", 15],
+        ["012", 12],
+        ["015", 15],
+        ["018", 12],
+        ["019", 15],
+        ["024", 12],
+        ["032", 15],
+        ["041", 12],
+      ].map(([number, price]) =>
+        fileItem(
+          `ring-${number}`,
+          `Ring ${number}`,
+          `/images/products/jewelry/rings/Jewelries_Samples2_${number}.jpeg`,
+          "Ring",
+          Number(price)
+        )
       ),
     },
+
     {
       slug: "bracelets",
       title: "Bracelets",
-      copy: "Beautiful wrist pieces that finish the look with softness, detail, and elegance.",
-      items: buildFileItems(
-        [
-          "Jewelries_Samples2_003.jpeg",
-          "Jewelries_Samples2_010.jpeg",
-          "Jewelries_Samples2_025.jpeg",
-        ],
-        "Bracelet",
-        "Bracelet",
-        "/images/products/jewelry/bracelets"
+      copy: "Beautiful wrist pieces for a refined finishing touch.",
+      items: [
+        "003", "010", "025",
+      ].map((number) =>
+        fileItem(
+          `jewelry-bracelet-${number}`,
+          `Bracelet ${number}`,
+          `/images/products/jewelry/bracelets/Jewelries_Samples2_${number}.jpeg`,
+          "Bracelet"
+        )
       ),
     },
+
     {
       slug: "unisex-bracelets",
       title: "Unisex Bracelets",
-      copy: "Flexible styling pieces that can move across looks while still feeling refined and premium.",
-      items: buildRangeItems("u-brac", 11, 20, "jpeg", "Unisex Bracelet", "Unisex"),
+      copy: "Flexible styling pieces designed to work beautifully across looks.",
+      items: pricedRange(
+        "u-brac",
+        [25, 25, 15, 15, 15, 15, 25, 25, 15, 25],
+        "jpeg",
+        "Unisex Bracelet",
+        "Unisex",
+        11
+      ),
     },
   ],
 };

@@ -11,9 +11,14 @@ export function NewArrivalsPreview() {
             <p className="gold-text text-xs font-semibold uppercase tracking-[0.24em]">
               New Arrivals
             </p>
-            <h2 className="section-title mt-3">Fresh pieces. Strong presence.</h2>
+
+            <h2 className="section-title mt-3">
+              Fresh pieces. Strong presence.
+            </h2>
+
             <p className="section-copy mt-4">
-              This section will later pull live products, but the layout is now ready for a real storefront experience.
+              Explore recently added fashion from the
+              DivinoFabStyles collection.
             </p>
           </div>
 
@@ -31,6 +36,7 @@ export function NewArrivalsPreview() {
               key={item.id}
               title={item.title}
               price={item.price}
+              sizes={item.sizes}
               tag={item.tag}
               image={item.image}
             />
