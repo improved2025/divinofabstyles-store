@@ -9,6 +9,7 @@ type CategoryProduct = {
   sizes?: string[];
   tag: string;
   image: string;
+  shopifyHandle?: string;
 };
 
 type CategoryPageViewProps = {
@@ -78,6 +79,7 @@ export function CategoryPageView({
             <p className="gold-text text-xs font-semibold uppercase tracking-[0.24em]">
               Collection
             </p>
+
             <h2 className="section-title mt-3">
               Selected pieces in this category.
             </h2>
@@ -92,6 +94,7 @@ export function CategoryPageView({
                 sizes={item.sizes}
                 tag={item.tag}
                 image={item.image}
+                shopifyHandle={item.shopifyHandle}
               />
             ))}
           </div>

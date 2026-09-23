@@ -5,6 +5,7 @@ type CategoryProduct = {
   sizes?: string[];
   tag: string;
   image: string;
+  shopifyHandle?: string;
 };
 
 type CategoryPage = {
@@ -319,6 +320,7 @@ export const womenCategoryPages: Record<string, CategoryPage> = {
         sizes: ML,
         tag: "Featured",
         image: "/images/products/metallic-party-dress.jpg",
+        shopifyHandle: "metallic-party-dress",
       },
       {
         id: "wd-party-silver-stone",
