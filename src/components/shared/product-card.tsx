@@ -158,6 +158,9 @@ export function ProductCard({
       return;
     }
 
+    const handle =
+      resolvedShopifyHandle;
+
     let cancelled = false;
 
     async function loadShopifyProduct() {
@@ -167,7 +170,7 @@ export function ProductCard({
 
         const response = await fetch(
           `/api/shopify-product/${encodeURIComponent(
-            resolvedShopifyHandle
+            handle
           )}`,
           {
             cache: "no-store",
@@ -482,9 +485,7 @@ export function ProductCard({
       {open && (
         <div
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 p-4 backdrop-blur-[2px] sm:p-6"
-          onMouseDown={(
-            event
-          ) => {
+          onMouseDown={(event) => {
             if (
               event.target ===
               event.currentTarget
@@ -495,9 +496,7 @@ export function ProductCard({
         >
           <div
             className="relative max-h-[92vh] w-full max-w-4xl overflow-y-auto rounded-[30px] bg-white shadow-[0_24px_80px_rgba(35,31,43,0.28)]"
-            onMouseDown={(
-              event
-            ) =>
+            onMouseDown={(event) =>
               event.stopPropagation()
             }
           >
@@ -520,9 +519,7 @@ export function ProductCard({
 
                   <button
                     type="button"
-                    onClick={
-                      closeModal
-                    }
+                    onClick={closeModal}
                     className="rounded-full border border-[rgba(90,52,122,0.12)] px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#522b7a] hover:bg-[#f7f2fb]"
                   >
                     Close
@@ -535,22 +532,18 @@ export function ProductCard({
 
                 {displayedPrice && (
                   <p className="mt-5 text-2xl font-bold text-[#522b7a]">
-                    {
-                      displayedPrice
-                    }
+                    {displayedPrice}
                   </p>
                 )}
 
                 {resolvedShopifyHandle &&
                   loadingShopify && (
                     <p className="mt-5 text-sm text-[#6b6475]">
-                      Loading
-                      availability...
+                      Loading availability...
                     </p>
                   )}
 
-                {liveSizes.length >
-                  0 && (
+                {liveSizes.length > 0 && (
                   <div className="mt-7">
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#6b6475]">
                       {liveSizes.length ===
@@ -566,9 +559,7 @@ export function ProductCard({
                         (size) => {
                           const variant =
                             liveVariants.find(
-                              (
-                                item
-                              ) => {
+                              (item) => {
                                 const sizeOption =
                                   item.selectedOptions.find(
                                     (
@@ -595,9 +586,7 @@ export function ProductCard({
 
                           return (
                             <button
-                              key={
-                                size
-                              }
+                              key={size}
                               type="button"
                               disabled={
                                 unavailable
@@ -683,13 +672,10 @@ export function ProductCard({
                   ) : (
                     <button
                       type="button"
-                      onClick={
-                        closeModal
-                      }
+                      onClick={closeModal}
                       className="relative z-20 inline-flex min-h-[50px] w-full cursor-pointer items-center justify-center rounded-full bg-[#6f42a6] px-6 font-semibold text-white hover:bg-[#5d368f]"
                     >
-                      Continue
-                      Shopping
+                      Continue Shopping
                     </button>
                   )}
                 </div>
