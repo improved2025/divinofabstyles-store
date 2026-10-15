@@ -3,15 +3,54 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { mainNav } from "@/lib/navigation";
+import {
+  mainNav,
+  type NavItem,
+} from "@/lib/navigation";
+
+function DesktopNavItem({
+  item,
+}: {
+  item: NavItem;
+}) {
+  if (item.external) {
+    return (
+      <a
+        href={item.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="nav-link"
+      >
+        {item.label}
+        <span className="ml-1 text-[10px] text-[#c8a64d]">
+          ↗
+        </span>
+      </a>
+    );
+  }
+
+  return (
+    <Link
+      href={item.href}
+      className="nav-link"
+    >
+      {item.label}
+    </Link>
+  );
+}
 
 export function SiteHeader() {
-  const [open, setOpen] = useState(false);
-  const [cartCount, setCartCount] = useState(0);
+  const [open, setOpen] =
+    useState(false);
+
+  const [cartCount, setCartCount] =
+    useState(0);
 
   useEffect(() => {
     const storedCount = Number(
-      localStorage.getItem("divino-cart-count") || "0"
+      localStorage.getItem(
+        "divino-cart-count"
+      ) || "0"
     );
 
     setCartCount(storedCount);
@@ -50,7 +89,7 @@ export function SiteHeader() {
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-[rgba(90,52,122,0.12)] bg-white/95 backdrop-blur-xl">
-        <div className="container-shell flex h-20 items-center justify-between gap-4 md:h-24">
+        <div className="container-shell flex h-20 items-center justify-between gap-3 md:h-24">
           <Link
             href="/"
             className="flex min-w-0 items-center gap-2 sm:gap-3"
@@ -75,19 +114,16 @@ export function SiteHeader() {
             </div>
           </Link>
 
-          <nav className="hidden items-center gap-6 md:flex">
+          <nav className="hidden items-center gap-4 md:flex xl:gap-6">
             {mainNav.map((item) => (
-              <Link
+              <DesktopNavItem
                 key={item.href}
-                href={item.href}
-                className="nav-link"
-              >
-                {item.label}
-              </Link>
+                item={item}
+              />
             ))}
           </nav>
 
-          <div className="hidden items-center gap-4 text-sm font-semibold text-[#522b7a] md:flex">
+          <div className="hidden items-center gap-3 text-sm font-semibold text-[#522b7a] md:flex">
             <Link
               href="/search"
               className="hover:text-[#6f42a6]"
@@ -132,7 +168,9 @@ export function SiteHeader() {
 
             <button
               type="button"
-              onClick={() => setOpen(true)}
+              onClick={() =>
+                setOpen(true)
+              }
               className="rounded-full border border-[rgba(90,52,122,0.12)] px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#522b7a]"
               aria-label="Open menu"
             >
@@ -147,7 +185,9 @@ export function SiteHeader() {
           <button
             type="button"
             className="absolute inset-0 bg-black/35"
-            onClick={() => setOpen(false)}
+            onClick={() =>
+              setOpen(false)
+            }
             aria-label="Close menu overlay"
           />
 
@@ -165,7 +205,9 @@ export function SiteHeader() {
 
               <button
                 type="button"
-                onClick={() => setOpen(false)}
+                onClick={() =>
+                  setOpen(false)
+                }
                 className="rounded-full border border-[rgba(90,52,122,0.12)] px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#522b7a]"
                 aria-label="Close menu"
               >
@@ -174,18 +216,56 @@ export function SiteHeader() {
             </div>
 
             <nav className="flex flex-col px-5 py-5">
-              {mainNav.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() =>
-                    setOpen(false)
-                  }
-                  className="border-b border-[rgba(90,52,122,0.08)] py-4 text-base font-semibold text-[#522b7a]"
-                >
-                  {item.label}
-                </Link>
-              ))}
+              {mainNav.map(
+                (item) =>
+                  item.external ? (
+                    <a
+                      key={
+                        item.href
+                      }
+                      href={
+                        item.href
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() =>
+                        setOpen(
+                          false
+                        )
+                      }
+                      className="flex items-center justify-between border-b border-[rgba(90,52,122,0.08)] py-4 text-base font-semibold text-[#522b7a]"
+                    >
+                      <span>
+                        {
+                          item.label
+                        }
+                      </span>
+
+                      <span className="text-[#c8a64d]">
+                        ↗
+                      </span>
+                    </a>
+                  ) : (
+                    <Link
+                      key={
+                        item.href
+                      }
+                      href={
+                        item.href
+                      }
+                      onClick={() =>
+                        setOpen(
+                          false
+                        )
+                      }
+                      className="border-b border-[rgba(90,52,122,0.08)] py-4 text-base font-semibold text-[#522b7a]"
+                    >
+                      {
+                        item.label
+                      }
+                    </Link>
+                  )
+              )}
 
               <div className="mt-6 flex flex-col gap-3">
                 <Link
@@ -208,6 +288,24 @@ export function SiteHeader() {
                   Account
                 </Link>
 
+                <a
+                  href="https://www.divinofabstyles.us"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() =>
+                    setOpen(false)
+                  }
+                  className="flex items-center justify-between rounded-full border border-[#c8a64d] bg-[#fffaf1] px-4 py-3 text-sm font-semibold text-[#522b7a]"
+                >
+                  <span>
+                    Visit Jewelry
+                  </span>
+
+                  <span className="text-[#c8a64d]">
+                    ↗
+                  </span>
+                </a>
+
                 <Link
                   href="/cart"
                   onClick={() =>
@@ -215,11 +313,16 @@ export function SiteHeader() {
                   }
                   className="flex items-center justify-between rounded-full bg-[#6f42a6] px-4 py-3 text-sm font-semibold text-white"
                 >
-                  <span>View Cart</span>
+                  <span>
+                    View Cart
+                  </span>
 
-                  {cartCount > 0 && (
+                  {cartCount >
+                    0 && (
                     <span className="inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-white px-1.5 text-[11px] font-bold text-[#6f42a6]">
-                      {cartCount}
+                      {
+                        cartCount
+                      }
                     </span>
                   )}
                 </Link>
